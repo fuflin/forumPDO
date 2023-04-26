@@ -17,12 +17,18 @@
 
         public function listCats(){
 
-            $sql = "SELECT c.name
+            $sql = "SELECT *
                     FROM category c";
 
             return $this->getMultipleResults(
                 DAO::select($sql), 
                 $this->className
             );
+        }
+
+        public function addCat(){
+
+            $sql = " INSERT INTO 
+            ";
         }
     }

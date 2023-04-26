@@ -17,7 +17,7 @@
 
         public function listUser(){
 
-            $sql = "SELECT u.nickname, u.mail, u.dateregis
+            $sql = "SELECT *
                     FROM user u";
 
             return $this->getMultipleResults(

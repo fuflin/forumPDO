@@ -7,6 +7,7 @@
 
         private $id;
         private $name;
+        private $img;
 
         public function __construct($data){         
             $this->hydrate($data);        
@@ -48,6 +49,26 @@
         public function setName($name)
         {
                 $this->name = $name;
+
+                return $this;
+        }
+
+        /**
+         * Get the value of img
+         */ 
+        public function getImg()
+        {
+                return $this->img;
+        }
+
+        /**
+         * Set the value of img
+         *
+         * @return  self
+         */ 
+        public function setImg($img)
+        {
+                $this->img = $img;
 
                 return $this;
         }

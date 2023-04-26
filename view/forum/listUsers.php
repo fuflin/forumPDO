@@ -1,6 +1,6 @@
 <?php
 
-$users = $result["data"]['topics'];
+$users = $result["data"]['users'];
     
 ?>
 
@@ -10,7 +10,7 @@ $users = $result["data"]['topics'];
 foreach($users as $user ){
 // var_dump($user);
     ?>
-    <p><?=$user->getText()." ".$user->getdatecreate()." ".$user->getNickname()?></p>
+    <p><?=$user->getNickname()." ".$user->getMail()." ".$user->getdateregis()?></p>
     <?php
 }
 
