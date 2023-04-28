@@ -20,7 +20,7 @@
             return [
                 "view" => VIEW_DIR."forum/listTopics.php",
                 "data" => [
-                    "topics" => $topicManager->listTopicUser()
+                    "topics" => $topicManager->listTopicByUser()
                 ]
             ];
         
@@ -33,7 +33,7 @@
             return [
                 "view" => VIEW_DIR."forum/listPosts.php",
                 "data" => [
-                    "posts" => $postManager->listPostUser()
+                    "posts" => $postManager->listPostFromUser()
                 ]
             ];
         }
@@ -60,5 +60,40 @@
                     "cats" => $catManager->listCats()
                 ]
             ];
+        }
+
+        public function viewCatByTopic($id){
+
+            $topicManager = new TopicManager();
+            // $catManager = new CategoryManager();
+
+            return [
+                "view" => VIEW_DIR."forum/detailCat.php",
+                "data" => [
+                    "topics" => $topicManager->findTopicByCat($id),
+                    // "cats" => $catManager->findCatTopic($id)
+                ]
+            ];
+        }
+
+        public function viewPostFromTopic($id){
+
+            $postManager = new PostManager();
+            
+            // $topicManager = new TopicManager();
+
+            return [
+                "view" => VIEW_DIR."forum/detailTopic.php",
+                "data" => [
+                    "posts" => $postManager->findPostByTopicId($id),
+                    // "topics" => $topicManager->findTopicCat($id)
+                ]
+            ];
+        }
+
+        public function viewaddPost(){
+
+            
+
         }
     }

@@ -15,7 +15,7 @@
             parent::connect();
         }
 
-        public function listTopicUser(){
+        public function listTopicByUser(){
 
             $sql = "SELECT t.title, t.creationdate, t.user_id
                     FROM topic t
@@ -23,6 +23,20 @@
 
             return $this->getMultipleResults(
                 DAO::select($sql), 
+                $this->className
+            );
+        }
+
+        
+
+        public function findTopicByCat($id){
+
+            $sql = "SELECT *
+                    FROM topic t 
+                    WHERE category_id = :id";
+
+            return $this->getMultipleResults(
+                DAO::select($sql, ['id' => $id], true), 
                 $this->className
             );
         }

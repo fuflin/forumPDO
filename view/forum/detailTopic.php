@@ -1,15 +1,19 @@
 <?php
 
 $posts = $result["data"]['posts'];
-    
+// $topics = $result["data"]['topics'];
+
 ?>
 
 <h1 style="text-align: center; color: white; margin-bottom: 30px">Listes des posts</h1>
 
+<button class="btn btn-dark" style="display: flex;justify-content: center; margin: auto; margin-bottom: 30px;"><a style="color: white;" href="index.php?action=addPost">ADD Realisateur</a></button>
+
+<?php foreach($posts as $post){
+var_dump($posts);
+    ?>
 
 
-<?php foreach($posts as $post ){
-            // var_dump($post);?>
 <div class="container" style="display: flex;flex-wrap: wrap; margin: 20px;">
     <div class="card">
     <div class="card-header">
@@ -24,6 +28,7 @@ $posts = $result["data"]['posts'];
         </div>
     </div>
 </div>
+
 <?php
 }
 ?>

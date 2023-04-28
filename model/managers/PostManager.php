@@ -15,7 +15,7 @@
             parent::connect();
         }
 
-        public function listPostUser(){
+        public function listPostFromUser(){
 
             $sql = "SELECT p.text, p.datecreate, p.user_id
                     FROM post p
@@ -23,6 +23,18 @@
 
             return $this->getMultipleResults(
                 DAO::select($sql), 
+                $this->className
+            );
+        }
+
+        public function findPostByTopicId($id){
+
+            $sql = "SELECT *
+                    FROM post p
+                    WHERE topic_id = :id";
+
+            return $this->getMultipleResults(
+                DAO::select($sql, ['id' => $id], true), 
                 $this->className
             );
         }
