@@ -15,6 +15,19 @@
             parent::connect();
         }
 
+        public function findOneByNickname($data){
+
+            $sql = "SELECT u.nickname
+            FROM ".$this->tableName." u
+            WHERE u.nickname = :nickname
+            ";
+
+            return $this->getOneOrNullResult(
+                DAO::select($sql, ['nickname' => $data], false), 
+                $this->className
+            );
+        }
+
         public function listUser(){
 
             $sql = "SELECT *
@@ -24,5 +37,5 @@
                 DAO::select($sql), 
                 $this->className
             );
-        }
+        } 
     }
