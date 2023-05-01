@@ -61,6 +61,36 @@
 
         public function login(){
 
-            
+            if(!empty($_POST)){
+
+                $nickname = filter_input(INPUT_POST, 'nickname', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+                $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+                if($nickname && $password){
+
+                    $manager = new UserManager();
+                    $user = $manager->log(
+                        $nickname,
+                        $password
+                    );
+
+                    if(!$user){
+
+                        echo "identifiant incorrect";
+                    } else {
+
+                        echo "connexion réussie";
+                    }
+                    
+                }
+
+            } return [
+                "view" => VIEW_DIR."security/login.php"
+            ];
+        }
+
+        public function logout(){
+
+
         }
     }
