@@ -38,4 +38,16 @@
                 $this->className
             );
         } 
+
+        public function check($nickname){
+
+            $sql = "SELECT u.nickname, u.password
+            FROM user u
+            WHERE u.nickname = '$nickname' ";
+    // var_dump($sql);
+            return $this->getOneOrNullResult(
+                DAO::select($sql, null, false), 
+                $this->className
+            );
+        }
     }
