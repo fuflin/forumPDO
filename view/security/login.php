@@ -10,6 +10,6 @@
 
     <!-- <input type="password" name="confirmPassword" placeholder="Confirm password" required> -->
 
-    <button type="submit">Register</button>
+    <button type="submit">Connect</button>
 
 </form>
