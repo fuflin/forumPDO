@@ -30,14 +30,14 @@
 
                 $nickname = filter_input(INPUT_POST, 'nickname', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
                 $password = filter_input(INPUT_POST, 'password', FILTER_VALIDATE_REGEXP, array(
-                    "options" => array("regexp" => '/[A-Za-z0-9]{12,32}/')
+                    "options" => array("regexp" => '/[A-Za-z0-9]{4,32}/')
                 ));
                 $confimrPassword = filter_input(INPUT_POST, 'confirmPassword', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
                 $mail = filter_input(INPUT_POST, 'mail', FILTER_SANITIZE_FULL_SPECIAL_CHARS, FILTER_VALIDATE_EMAIL);
 
                 if($nickname && $password && $mail){
 
-                    if(($password == $confimrPassword) and strlen($password) >= 12){
+                    if(($password == $confimrPassword) and strlen($password) >= 4){
 
                         $manager = new UserManager();
                         $user = $manager->findOneByNickname($nickname);
@@ -69,17 +69,15 @@
                 if($nickname && $password){
 
                     $manager = new UserManager();
-                    $user = $manager->log(
-                        $nickname,
-                        $password
-                    );
+                    $user = $manager->check($nickname);
 
-                    if(!$user){
+                    if(!$user || !password_verify($password, $user->getPassword())){
 
                         echo "identifiant incorrect";
                     } else {
 
                         echo "connexion réussie";
+                        Session::setUser($user);
                     }
                     
                 }
@@ -91,6 +89,10 @@
 
         public function logout(){
 
+            session_destroy();
 
+            return [
+                "view" => VIEW_DIR."home.php"
+            ];
         }
     }
