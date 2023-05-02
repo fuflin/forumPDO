@@ -19,8 +19,7 @@
 
             $sql = "SELECT u.nickname
             FROM ".$this->tableName." u
-            WHERE u.nickname = :nickname
-            ";
+            WHERE u.nickname = :nickname";
 
             return $this->getOneOrNullResult(
                 DAO::select($sql, ['nickname' => $data], false), 
