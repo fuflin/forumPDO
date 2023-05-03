@@ -17,7 +17,7 @@
 
         public function listPostFromUser(){
 
-            $sql = "SELECT p.text, p.datecreate, p.user_id
+            $sql = "SELECT *
                     FROM post p
                     INNER JOIN user u ON p.user_id = u.id_user";
 

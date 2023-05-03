@@ -17,7 +17,7 @@
 
         public function listTopicByUser(){
 
-            $sql = "SELECT t.title, t.creationdate, t.user_id
+            $sql = "SELECT *
                     FROM topic t
                     INNER JOIN user u ON t.user_id = u.id_user";
 
@@ -26,8 +26,6 @@
                 $this->className
             );
         }
-
-        
 
         public function findTopicByCat($id){
 

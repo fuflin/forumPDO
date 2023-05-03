@@ -17,7 +17,7 @@
 
         public function findOneByNickname($data){
 
-            $sql = "SELECT u.nickname
+            $sql = "SELECT *
             FROM ".$this->tableName." u
             WHERE u.nickname = :nickname";
 

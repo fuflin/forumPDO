@@ -28,7 +28,7 @@
 
         public function findOneByName($data){
 
-            $sql = "SELECT name
+            $sql = "SELECT *
             FROM ".$this->tableName." u
             WHERE name = :name";
 
