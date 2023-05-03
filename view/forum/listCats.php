@@ -21,3 +21,5 @@ $cats = $result["data"]['cats'];
 <?php
 }
 ?>
+
+<button class="btn btn-dark" style="display: flex;justify-content: center; margin: auto; margin-bottom: 30px;"><a style="color: white;" href="index.php?ctrl=forum&action=viewAddCat">New Category</a></button>
