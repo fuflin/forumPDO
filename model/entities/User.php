@@ -77,6 +77,12 @@
                 return $this;
         }
 
+        public function hasRole($role){
+
+                $result = $this->getRole() == json_encode($role);
+
+                return $result;
+        }
 
         public function getdateregis(){
             $formattedDate = $this->dateregis->format("d/m/Y, H:i:s");
@@ -104,6 +110,46 @@
         public function setMail($mail)
         {
                 $this->mail = $mail;
+
+                return $this;
+        }
+
+        /**
+         * Get the value of id
+         */ 
+        public function getId()
+        {
+                return $this->id;
+        }
+
+        /**
+         * Set the value of id
+         *
+         * @return  self
+         */ 
+        public function setId($id)
+        {
+                $this->id = $id;
+
+                return $this;
+        }
+
+        /**
+         * Get the value of closed
+         */ 
+        public function getClosed()
+        {
+                return $this->closed;
+        }
+
+        /**
+         * Set the value of closed
+         *
+         * @return  self
+         */ 
+        public function setClosed($closed)
+        {
+                $this->closed = $closed;
 
                 return $this;
         }
