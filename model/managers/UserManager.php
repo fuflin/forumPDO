@@ -40,7 +40,7 @@
 
         public function check($nickname){
 
-            $sql = "SELECT u.nickname, u.password, u.role
+            $sql = "SELECT u.user_id, u.nickname, u.password, u.role
             FROM user u
             WHERE u.nickname = '$nickname' ";
     // var_dump($sql);
