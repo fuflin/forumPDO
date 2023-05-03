@@ -1,8 +1,6 @@
 <?php
 
 $topics = $result["data"]['topics'];
-// $cats = $result["data"]['cats'];
-
 
 ?>
 
@@ -10,7 +8,7 @@ $topics = $result["data"]['topics'];
   
 <div class="" style="display: flex;flex-wrap: wrap;">
     <?php foreach($topics as $topic){
-        $topicId= $topic->getId();
+        // $topicId= $topic->getId();
 
 // var_dump($topic);
 // var_dump($topicId);
@@ -29,4 +27,20 @@ $topics = $result["data"]['topics'];
 
 <?php
 }
-?>
+
+if(App\Session::getUser()){
+  ?>
+  
+  <form action="index.php?ctrl=forum&action=addTopic&id=<?=$_GET['id']?>" method="post" enctype="multipart/form-data">
+      
+      <input type="text" name="title" placeholder="name topic" required>
+
+      <textarea name="text" placeholder="Message 1e post" required></textarea>
+  
+      <button type="submit">ADD</button>
+  
+  </form>
+  
+  <?php
+  }
+  ?>
