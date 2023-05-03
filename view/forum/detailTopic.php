@@ -1,13 +1,10 @@
 <?php
-
+$topic = $result["data"]["topic"];
 $posts = $result["data"]['posts'];
-// $topics = $result["data"]['topics'];
 
 ?>
 
-<h1 style="text-align: center; color: white; margin-bottom: 30px">Listes des posts</h1>
-
-<button class="btn btn-dark" style="display: flex;justify-content: center; margin: auto; margin-bottom: 30px;"><a style="color: white;" href="index.php?action=addPost">New Post</a></button>
+<h1 style="text-align: center; color: black; margin-bottom: 30px">Sujet : <?=$topic->getTitle()?></h1>
 
 <?php foreach($posts as $post){
 // var_dump($posts);
@@ -26,9 +23,23 @@ $posts = $result["data"]['posts'];
             </footer>
             </blockquote>
         </div>
+        <button class="btn btn-dark" style="display: flex;justify-content: center; margin: auto; margin-bottom: 30px;"><a style="color: white;" href="index.php?action=addPost">Delete</a></button>
     </div>
 </div>
 
+<?php
+}
+if(App\Session::getUser()){
+?>
+    
+<form action="index.php?ctrl=forum&action=addPost&id=<?=$topic->getId()?>" method="post" enctype="multipart/form-data">
+  
+    <textarea name="text" placeholder="New post" required></textarea>
+    
+    <button type="submit">ADD</button>
+    
+</form>
+    
 <?php
 }
 ?>
