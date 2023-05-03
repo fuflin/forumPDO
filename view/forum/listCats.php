@@ -3,7 +3,7 @@
 $cats = $result["data"]['cats'];
 
 ?>
-<h1 style="text-align: center; color: white; margin-bottom: 30px">Listes des catégories</h1>
+<h1 style="text-align: center; color: black; margin-bottom: 30px">Listes des catégories</h1>
 
 
 <div class="container" style="display: flex;flex-wrap: wrap;">

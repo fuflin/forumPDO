@@ -4,7 +4,7 @@ $topics = $result["data"]['topics'];
 
 ?>
 
-<h1 style="text-align: center; color: white; margin-bottom: 30px">Listes des topics</h1>
+<h1 style="text-align: center; color: black; margin-bottom: 30px">Listes des topics</h1>
   
 <div class="" style="display: flex;flex-wrap: wrap;">
     <?php foreach($topics as $topic){
