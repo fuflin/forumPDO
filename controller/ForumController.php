@@ -50,6 +50,18 @@
             ];
         }
 
+        public function viewCat(){
+
+            $catManager = new CategoryManager();
+
+            return [
+                "view" => VIEW_DIR."forum/listCats.php",
+                "data" => [
+                    "cats" => $catManager->listCats()
+                ]
+            ];
+        }
+
         public function viewCatByTopic($id){
 
             $topicManager = new TopicManager();
@@ -167,5 +179,7 @@
             } 
             $this->redirectTo("forum", "viewPostFromTopic", $id);
         }
+
+        
         
     }
