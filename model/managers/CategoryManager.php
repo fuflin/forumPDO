@@ -26,6 +26,18 @@
             );
         }
 
+        public function findOneByName($data){
+
+            $sql = "SELECT name
+            FROM ".$this->tableName." u
+            WHERE name = :name";
+
+            return $this->getOneOrNullResult(
+                DAO::select($sql, ['name' => $data], false), 
+                $this->className
+            );
+        }
+
         public function findCatTopic($id){
 
             $sql = "SELECT *
@@ -39,9 +51,5 @@
             );
         }
 
-        public function addCat(){
-
-            $sql = " INSERT INTO 
-            ";
-        }
+        
     }
