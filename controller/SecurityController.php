@@ -55,14 +55,29 @@
                             if($manager->add([
                                 "nickname" => $nickname,
                                 "mail" => $mail, 
-                                "password" => $hash,
-                            ]));
-                        } // on entre les informations saisies dans les formulaires dans la base de donnée
+                                "password" => $hash]))
+                                {
+                                    header('Location:index.php?ctrl=home');
+                                }
+                                return [
+                                "view" => VIEW_DIR."security/login.php", 
+                                ]; 
+                            }
+                        }
+                    }else{
+                        echo "Erreur : tous les champs sont requis.";
                     }
+                }else {
+                    echo "Le formulaire n'a pas été soumis.";
                 }
-            } return [
-                "view" => VIEW_DIR."security/register.php" // ici on redirige vers la page voulu après la validation du formulaire
-            ];
+        }
+
+        public function loginForm(){
+
+            return [
+                "view" => VIEW_DIR."security/login.php", 
+                "data" => null,
+            ]; 
         }
 
         public function login(){ // fonction pour se connecter à la session
@@ -72,35 +87,42 @@
                 // on filtre les données saisies dans les formulaires
                 $nickname = filter_input(INPUT_POST, 'nickname', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
                 $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+                
 
-                if($nickname && $password){ // on vérifie que les infos sont bien filtré
-
-                    $manager = new UserManager();
-                    $user = $manager->check($nickname);
-
-                    // on vérifie que les infos saisies sont les mêmes que celle dans la bdd
-                    if(!$user || !password_verify($password, $user->getPassword())){
-
-                        echo "identifiant incorrect";
-                    } else {
-
-                        echo "connexion réussie";
-                        Session::setUser($user);
-                    }
+                if($nickname && $password){
                     
+                    $manager= new UserManager();
+                    $user = $manager ->findOneByNickname($nickname);
+    
+                    if ($user){
+    
+                        if(password_verify($password, $user->getPassword())){
+    
+                            SESSION::setUser($user); 
+                            
+                            SESSION::addFlash("success", "connected"); 
+                            $this->redirectTo("home", "home");                            
+                                
+                        }else {
+    
+                            SESSION::addFlash("success", "username or password incorrect"); 
+                                
+                            return [
+                                "view" => VIEW_DIR . "security/login.php",
+                                "data" => null,
+                            ];
+                        }
+    
+                    }
                 }
-
-            } return [
-                "view" => VIEW_DIR."security/login.php"
-            ];
+            }
         }
 
-        public function logout(){ // fonction déconnexion 
+        public function logout(){
 
-            session_unset(); // cette fonction détruit toutes les variables d'une session
-
-            return [
-                "view" => VIEW_DIR."home.php"
-            ];
+            session_destroy();
+            // unset($_SESSION['user']);
+            
+            $this->redirectTo("view", "index");
         }
     }
