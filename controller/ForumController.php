@@ -148,8 +148,6 @@
                             "user_id" => $user_id,
                             "topic_id" =>$id
                         ]);
-
-                     
                 }
             }
             $this->redirectTo("forum", "viewPostFromTopic", $id);
@@ -180,6 +178,59 @@
             $this->redirectTo("forum", "viewPostFromTopic", $id);
         }
 
-        
-        
+        public function viewModify($id){
+
+            $id = $_GET['id'];
+            $postManager = new PostManager();
+            
+            return [
+                "view" => VIEW_DIR."forum/modifyElement.php",
+                "data" => [
+                    "post" => $postManager->findOneById($id)
+                ]
+            ];
+        }
+
+        public function deletePost($id){
+
+            $byebye = new PostManager();
+
+            $byebye->delete($id);
+
+            $this->redirectTo("forum", "viewPostFromTopic", $id);
+        }
+
+        public function modifyPost($id){
+            $id = $_GET['id'];
+            // $topicId = $_GET['topic'];
+
+            if (isset($_POST['submit'])){
+                
+
+                $text = filter_input(INPUT_POST, "text", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+                
+                if($text){
+                    
+                    $addPost = new PostManager();
+                    $topic = new TopicManager();
+
+                    $addPost->updatePost($text, $id);  
+                    Session::addFlash("succes", "Commentaire modifié");
+                    // $this->redirectTo("forum", "viewPostFromTopic", $topicId);
+                    return [
+                        "view" => VIEW_DIR."forum/detailTopic.php",
+                        "data" => [
+                            "topic" => $topic->findOneById($id),
+                            "posts" => $addPost->findPostByTopicId($id)
+                        ]
+                    ];
+
+                } else {
+                    Session::addFlash("error", "Un problème avec le contenu");
+                }
+            }
+            Session::addFlash("error", "FUCK YOU!") ; 
+            // $this->redirectTo("forum", "viewPostFromTopic", $topicId);
+        }
     }
