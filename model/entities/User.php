@@ -62,7 +62,7 @@
          */ 
         public function getRole()
         {
-                return $this->role;
+                return json_decode($this->role);
         }
 
         /**
@@ -72,8 +72,8 @@
          */ 
         public function setRole($role)
         {
-                $this->role = $role;
-
+                $this->role = json_encode($role);
+                
                 return $this;
         }
 
