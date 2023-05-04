@@ -18,14 +18,23 @@ $posts = $result["data"]['posts'];
     </div>
         <div class="card-body">
             <blockquote class="blockquote mb-0">
-            <p><?=$post->getText()?></p>
+            <p style="witdh: 40%;"><?=$post->getText()?></p>
             <footer class="blockquote-footer"><?=$post->getdatecreate()?><cite title="Source Title"><br><?=$post->getUser()->getNickname()?></cite>
             </footer>
             </blockquote>
+            <?php
+    if($post->getUser()->getId() == App\Session::getUser()->getId() || App\Session::isAdmin()){?>
+
+        <button class="btn btn-dark" style="display: flex;justify-content: center; margin: auto; margin-bottom: 10px;"><a style="color: white;" href="index.php?ctrl=forum&action=viewModify&id=<?=$post->getId()?>&topic=<?= $topic->getId() ?>">Modify</a></button>
+        <button class="btn btn-dark" style="display: flex;justify-content: center; margin: auto; margin-bottom: 30px;"><a style="color: white;" href="index.php?ctrl=forum&action=deletePost&id=<?=$post->getId()?>">Delete</a></button>
+        <?php
+        }
+        ?>
         </div>
-        <button class="btn btn-dark" style="display: flex;justify-content: center; margin: auto; margin-bottom: 30px;"><a style="color: white;" href="index.php?action=addPost">Delete</a></button>
     </div>
 </div>
+
+
 
 <?php
 }
