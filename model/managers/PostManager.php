@@ -27,6 +27,20 @@
             );
         }
 
+        public function findPostById($id){
+
+            $sql = "SELECT *
+                    FROM post p
+                    INNER JOIN topic t ON t.id_topic = p.topic_id
+                    WHERE p.id_post = :id
+                    ";
+
+            return $this->getOneOrNullResult(
+                DAO::select($sql, ['id' => $id], false), 
+                $this->className
+            );
+        }
+
         public function findPostByTopicId($id){
 
             $sql = "SELECT *
@@ -37,6 +51,15 @@
                 DAO::select($sql, ['id' => $id], true), 
                 $this->className
             );
+        }
+
+        public function updatePost($text, $id){
+
+            $sql = "UPDATE post p
+                    SET p.text = :text
+                    WHERE p.id_post = :id";
+
+            return DAO::update($sql, ['text' => $text ,'id' => $id]);
         }
 
     }
