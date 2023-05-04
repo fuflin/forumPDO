@@ -26,7 +26,7 @@
             
         public function register(){ //fonction pour s'inscrire
 
-            if(!empty($_POST)){
+            if(!empty($_POST)){ // si les champs ne sont pas vide 
 
                 $nickname = filter_input(INPUT_POST, 'nickname', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
                 // on filtre les données récupérer par le formulaire
@@ -41,8 +41,7 @@
                 if($nickname && $password && $mail){ // si les infos ont été confirmer correctement
 
                     if(($password == $confimrPassword) and strlen($password) >= 4){
-                    // cette condition nous dit que si les données saisie dans le champ password sont identique au champ confirm 
-                    // et que la longueur correspont alors
+                    // cette condition nous dit que si les données saisie dans le champ password sont identique au champ confirm et que la longueur du mdp correspont alors
 
                         $manager = new UserManager();
                         $user = $manager->findOneByNickname($nickname);
@@ -55,8 +54,9 @@
                             if($manager->add([
                                 "nickname" => $nickname,
                                 "mail" => $mail, 
-                                "password" => $hash]))
-                                {
+                                "password" => $hash,
+                                "role" => json_encode("ROLE_USER")])) // cela nous permet de donner le role user par défaut pour les nouveaux inscrits
+                                {   
                                     header('Location:index.php?ctrl=home');
                                 }
                                 return [
@@ -72,7 +72,7 @@
                 }
         }
 
-        public function loginForm(){
+        public function loginForm(){ //la fonction pour nous diriger vers la vue ou se trouve le formulaire de connexion
 
             return [
                 "view" => VIEW_DIR."security/login.php", 
@@ -89,7 +89,7 @@
                 $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
                 
 
-                if($nickname && $password){
+                if($nickname && $password){ // si le pseudo et le mdp on été filtré correctement alors
                     
                     $manager= new UserManager();
                     $user = $manager ->findOneByNickname($nickname);
@@ -105,7 +105,7 @@
                                 
                         }else {
     
-                            SESSION::addFlash("success", "username or password incorrect"); 
+                            SESSION::addFlash("error", "username or password incorrect"); 
                                 
                             return [
                                 "view" => VIEW_DIR . "security/login.php",
@@ -118,11 +118,13 @@
             }
         }
 
-        public function logout(){
+        public function logout(){ // fonction déconnexion
 
             session_destroy();
             // unset($_SESSION['user']);
             
             $this->redirectTo("view", "index");
         }
+
+
     }
