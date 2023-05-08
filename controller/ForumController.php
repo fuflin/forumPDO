@@ -230,7 +230,7 @@
                     Session::addFlash("error", "Un problème avec le contenu");
                 }
             }
-            Session::addFlash("error", "FUCK YOU!") ; 
+            Session::addFlash("error", "recommencez") ; 
             // $this->redirectTo("forum", "viewPostFromTopic", $topicId);
         }
     }
